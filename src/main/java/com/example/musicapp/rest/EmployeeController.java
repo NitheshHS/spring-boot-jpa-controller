@@ -3,6 +3,8 @@ package com.example.musicapp.rest;
 import java.util.Date;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -36,21 +38,21 @@ public class EmployeeController {
 
 	//add mapping for GET /employees/{employeeId}
 	@GetMapping("/employees/{employeeId}")
-	public Employee getEmployee(@PathVariable int employeeId) {
+	public ResponseEntity<Employee> getEmployee(@PathVariable int employeeId) {
 		Employee theEmployee = employeeService.find(employeeId);
 		if(theEmployee == null) {
 			throw new EmployeeNotFoundException("Employee not found with Id: "+employeeId);
 		}
-		return theEmployee;
+		return new ResponseEntity<Employee>(theEmployee, HttpStatus.OK);
 
 	}
 
 	//add mapping for POST /emloyees
 	@PostMapping("/employees")
-	public Employee addEmployee(@RequestBody Employee employee) {
+	public ResponseEntity<Employee> addEmployee(@Valid @RequestBody Employee employee) {
 		employee.setId(0);
 		Employee theemployee = employeeService.save(employee);
-		return employee;
+		return new ResponseEntity<Employee>(theemployee, HttpStatus.CREATED);
 	}
 
 	//add mapping for PUT /employees

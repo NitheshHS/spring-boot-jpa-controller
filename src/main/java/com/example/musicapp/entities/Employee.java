@@ -6,6 +6,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+
+import com.sun.istack.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,13 +24,15 @@ public class Employee {
 	@Column(name = "id")
 	private int id;
 	
-	
+	@NotBlank(message = "First name cannot be null")
 	@Column(name = "first_name")
 	private String first_name;
 	
+	@NotBlank(message = "last name cannot be null")
 	@Column(name = "last_name")
 	private String last_name;
 	
+	@Email(message = "Invalid email")
 	@Column(name = "email")
 	private String email;
 
