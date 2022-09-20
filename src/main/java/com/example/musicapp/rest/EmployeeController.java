@@ -68,33 +68,7 @@ public class EmployeeController {
 		employeeService.delete(employeeId);
 	}
 
-	//add exception handler
-	@ExceptionHandler
-	public ResponseEntity<EmployeeErrorResponse> handleException(EmployeeNotFoundException exc){
-		//create employee error response object
-		EmployeeErrorResponse error = new EmployeeErrorResponse();
-		//set the pojo's 
-		error.setStatusCode(HttpStatus.NOT_FOUND.value());
-		error.setMessage(exc.getMessage());
-		error.setTimestamp(new Date().getTime());
-		//return response entity
-		return new ResponseEntity<EmployeeErrorResponse>(error, HttpStatus.NOT_FOUND);
-	}
-
-	//Handle any type of exception
-	@ExceptionHandler
-	public ResponseEntity<EmployeeErrorResponse> handleException(Exception exc){
-		//create employee error response object
-		EmployeeErrorResponse error = new EmployeeErrorResponse();
-		//set the pojo's 
-		error.setStatusCode(HttpStatus.BAD_REQUEST.value());
-		error.setMessage("Invalid input : "+exc.getMessage());
-		error.setTimestamp(new Date().getTime());
-		//return response entity
-		return new ResponseEntity<EmployeeErrorResponse>(error, HttpStatus.BAD_GATEWAY);
-
-	}
-
+	
 
 
 }
