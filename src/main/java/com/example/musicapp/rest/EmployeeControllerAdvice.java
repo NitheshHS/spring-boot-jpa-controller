@@ -4,6 +4,7 @@ import java.util.Date;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -35,6 +36,18 @@ public class EmployeeControllerAdvice {
 			//return response entity
 			return new ResponseEntity<EmployeeErrorResponse>(error, HttpStatus.BAD_GATEWAY);
 
+		}
+		
+		@ExceptionHandler(MethodArgumentNotValidException.class)
+		public ResponseEntity<EmployeeErrorResponse> handleException(
+				MethodArgumentNotValidException exc){
+			
+			EmployeeErrorResponse error = new EmployeeErrorResponse();
+			error.setStatusCode(HttpStatus.BAD_REQUEST.value());
+			error.setMessage(exc.getMessage());
+			error.setTimestamp(new Date().getTime());
+			
+			return new ResponseEntity<EmployeeErrorResponse>(error, HttpStatus.BAD_REQUEST);
 		}
 
 }

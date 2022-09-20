@@ -1,6 +1,5 @@
 package com.example.musicapp.rest;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -8,7 +7,6 @@ import javax.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -47,7 +45,7 @@ public class EmployeeController {
 
 	}
 
-	//add mapping for POST /emloyees
+	//add mapping for POST /employees
 	@PostMapping("/employees")
 	public ResponseEntity<Employee> addEmployee(@Valid @RequestBody Employee employee) {
 		employee.setId(0);
@@ -57,7 +55,7 @@ public class EmployeeController {
 
 	//add mapping for PUT /employees
 	@PutMapping("/employees/{employeeId}")
-	public Employee updateEmployee(@RequestBody Employee employee, @PathVariable int employeeId) {
+	public Employee updateEmployee(@Valid @RequestBody Employee employee, @PathVariable int employeeId) {
 		return employeeService.update(employee, employeeId);
 	}
 

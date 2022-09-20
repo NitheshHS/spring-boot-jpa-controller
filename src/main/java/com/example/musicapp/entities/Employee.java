@@ -8,6 +8,9 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import com.sun.istack.NotNull;
 
@@ -24,7 +27,10 @@ public class Employee {
 	@Column(name = "id")
 	private int id;
 	
-	@NotBlank(message = "First name cannot be null")
+	@NotBlank(message = "First name cannot be blank")
+	@NotNull
+	@NotEmpty(message = "First name cannot be empty")
+	@Size(max = 30)
 	@Column(name = "first_name")
 	private String first_name;
 	
@@ -33,6 +39,8 @@ public class Employee {
 	private String last_name;
 	
 	@Email(message = "Invalid email")
+	@NotNull
+	@NotBlank
 	@Column(name = "email")
 	private String email;
 
